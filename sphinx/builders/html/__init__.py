@@ -468,7 +468,9 @@ class StandaloneHTMLBuilder(Builder):
         else:
             self.last_updated = None
 
-        logo = path.basename(self.config.html_logo) if self.config.html_logo else ''
+        logo = self.config.html_logo or ''
+        if not isurl(logo):
+            logo = path.basename(logo)
         favicon = path.basename(self.config.html_favicon) if self.config.html_favicon else ''
 
         self.relations = self.env.collect_relations()
